@@ -7,8 +7,9 @@
  * This script provides a class to convert between Right Ascension and Declination to Altitude and Azimuth for your local position.
  * It also provides some helper functions to get LST, HA and days from J2000.
  */
- 
-class radec {
+namespace Radec;
+
+class Calculator {
   protected $ra = 0;
   protected $dec = 0;
   
