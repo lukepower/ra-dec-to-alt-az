@@ -5,7 +5,9 @@
  * @copyright 2014
  */
 
-require('radec.class.php');
+require('src/Radec/Calculator.php');
+
+use Radec\Calculator as radec;
 
 $radec = new radec(radec::decimaldegrees(51, 49, 48), -radec::decimaldegrees(0, 49, 48));
 
