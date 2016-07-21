@@ -1,9 +1,9 @@
 <?php
- 
+
 /**
  * @author Tom Gillespy
  * @copyright 2014
- * 
+ *
  * This script provides a class to convert between Right Ascension and Declination to Altitude and Azimuth for your local position.
  * It also provides some helper functions to get LST, HA and days from J2000.
  */
@@ -12,15 +12,15 @@ namespace Radec;
 class Calculator {
   protected $ra = 0;
   protected $dec = 0;
-  
+
   protected $latitude = 0;
   protected $longditude = 0;
-  
+
   protected $day = 0;
   protected $month = 0;
   protected $year = 0;
- 
-  
+
+
   private $yearj2000 = array(   '1998' => -731.5,
                                 '1999' => -366.5,
                                 '2000' => -1.5,
@@ -45,9 +45,9 @@ class Calculator {
                                 '2019' => 6938.5,
                                 '2020' => 7303.5,
                                 '2021' => 7669.5,
-                                //This needs exending to 2030 or via a method if possible. But I can't work out how Julian dates work just yet.                           
-  ); 
-  
+                                //This needs exending to 2030 or via a method if possible. But I can't work out how Julian dates work just yet.
+  );
+
   //The month is 1 indexed, so 1 is January and 12 is December. This provides the year offset for the start of the month.
   private $monthj2000 = array(  1 => 0,
                                 2 => 31,
@@ -62,7 +62,7 @@ class Calculator {
                                 11 => 304,
                                 12 => 334,
   );
-  
+
   private $monthj2000leap = array(  1 => 0,
                                     2 => 31,
                                     3 => 60,
@@ -76,22 +76,22 @@ class Calculator {
                                     11 => 305,
                                     12 => 335,
   );
-  
-  
-  function __construct($lat, $long)
+
+
+  public function __construct($lat, $long)
     {
         $this->latitude = $lat;
         $this->longditude = $long;
     }
-    
-  function settimefromtimestamp($timestamp)
+
+  public function settimefromtimestamp($timestamp)
     {
         $this->day = gmdate('j', $timestamp);
         $this->month = gmdate('n', $timestamp);
         $this->year = gmdate('Y', $timestamp);
     }
-    
-  function monthoffset($month, $year)
+
+  protected function monthoffset($month, $year)
     {
         if (gmdate('L', strtotime($year.'-'.$month.'-01')) == 1)
           {
@@ -99,17 +99,17 @@ class Calculator {
           }
           else
           {
-            
+
             return $this->monthj2000[$month];
           }
     }
-  
-  function yearoffset($year)
+
+  protected function yearoffset($year)
     {
         return $this->yearj2000[$year];
     }
-  
-  function daysbeforeJ2000($timestamp)
+
+  public function daysbeforeJ2000($timestamp)
     {
         $this->settimefromtimestamp($timestamp);
         $offset = $this->yearoffset($this->year);
@@ -118,28 +118,28 @@ class Calculator {
         $offset += $this->fractionalday($timestamp);
         return $offset;
     }
-    
-  function getdecimalUT($timestamp)
+
+  public function getdecimalUT($timestamp)
     {
         $ut = gmdate('G', $timestamp);
         $ut += (gmdate('i', $timestamp)/60);
         $ut += gmdate('s', $timestamp)/3600;
         return $ut;
     }
-    
-  function decimaldegrees($degrees, $minutes, $seconds)
+
+  public static function decimaldegrees($degrees, $minutes, $seconds)
     {
         return $degrees + ($minutes / 60) + ($seconds / 3600);
     }
-  
-  function fractionalday($timestamp)
+
+  public function fractionalday($timestamp)
     {
         //$hours = date('G', $timestamp) + (date('i', $timestamp) / 60);
         $hours = $this->getdecimalUT($timestamp);
         return $hours/24;
     }
-  
-  function getLST($timestamp)
+
+  public function getLST($timestamp)
     {
         //LST = 100.46 + 0.985647 * d + long + 15*UT
         $unrefinedlst = 100.46 + (0.985647 * $this->daysbeforeJ2000($timestamp)) + $this->longditude + (15*$this->getdecimalUT($timestamp));
@@ -158,23 +158,23 @@ class Calculator {
         $lst = $unrefinedlst;
         return $lst;
     }
- 
-   function getHA($timestamp)
+
+   public function getHA($timestamp)
      {
         return $this->getLST($timestamp) - $this->ra;
      }
- 
-   function getALT($timestamp)
+
+   public function getALT($timestamp)
      {
         $dec = $this->dec;
         $lat = $this->latitude;
         $ha = $this->getHA($timestamp);
-        
+
         $sinALT = (sin(deg2rad($dec))*sin(deg2rad($lat))) + (cos(deg2rad($dec))*cos(deg2rad($lat))*cos(deg2rad($ha)));
         return rad2deg(asin($sinALT));
      }
-     
-   function getAZ($timestamp)
+
+   public function getAZ($timestamp)
      {
         $dec = $this->dec;
         $lat = $this->latitude;
@@ -191,14 +191,14 @@ class Calculator {
             return $azdeg;
           }
      }
-     
-   function setradec($ra, $dec)
+
+   public function setradec($ra, $dec)
      {
         $this->ra = $ra * 15;
         $this->dec = $dec;
-     }   
-    
+     }
+
 }
- 
- 
+
+
 ?>
