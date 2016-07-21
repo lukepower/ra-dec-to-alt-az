@@ -1,0 +1,14 @@
+{
+    "name": "leonboot/ra-dec-to-alt-az",
+    "description": "A PHP Right Ascension and Declination to Altitude and Azimuth for the users current Earth Position and time",
+    "authors": [
+        {
+            "name": "Leon Boot",
+            "email": "wlboot@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Radec\\": "src/" }
+    },
+    "require": {}
+}
