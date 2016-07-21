@@ -10,5 +10,6 @@
     "autoload": {
         "psr-0": { "Radec\\": "src/" }
     },
-    "require": {}
+    "require": {},
+    "minimum-stability": "dev"
 }
