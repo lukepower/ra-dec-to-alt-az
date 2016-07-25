@@ -1,6 +1,8 @@
 RA/Dec to Alt/Az PHP Class
 ================
 
+> This repository is a fork of [Tom Gillespy's RA/Dec to Alt/Az repository](https://github.com/tomgillespy), with the sole purpose of making the class `composer` installable. Some code refactoring was done, most importantly the class has been put into its own namespace.
+
 This class converts celestial coordinates, along with the time, latitude and longditude to a altitude and azimuth for a telescope mount or camera.
 
 ##Installation
