@@ -5,13 +5,17 @@ This class converts celestial coordinates, along with the time, latitude and lon
 
 ##Installation
 
-```php
-include('radec.class.php');
+```bash
+composer install leonboot/ra-dec-to-alt-az
 ```
 
 ##Usage
 
 ```php
+require 'vendor/autoload.php';
+
+use Radec\Calculator as radec;
+
 $radec = new radec(radec::decimaldegrees(latitude), radec::decimaldegrees(longditude));
 
 $radec->setradec(radec::decimaldegrees(right_ascention), radec::decimaldegrees(declination));
