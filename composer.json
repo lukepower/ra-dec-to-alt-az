@@ -8,7 +8,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Radec\\": "src/" }
+        "psr-4": { "Radec\\": "src/Radec/" }
     },
     "require": {},
     "minimum-stability": "dev"
