@@ -1,8 +1,10 @@
 {
     "name": "leonboot/ra-dec-to-alt-az",
-    "version": "0.1",
     "description": "A PHP Right Ascension and Declination to Altitude and Azimuth for the users current Earth Position and time",
     "authors": [
+        {
+            "name": "Tom Gillespy"
+        },
         {
             "name": "Leon Boot",
             "email": "wlboot@gmail.com"
