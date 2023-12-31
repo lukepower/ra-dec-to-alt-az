@@ -46,7 +46,14 @@ class Calculator {
                                 '2020' => 7303.5,
                                 '2021' => 7669.5,
                                 '2022' => 8034.5,
-                                '2023' => 8399.5
+                                '2023' => 8399.5,
+                                '2024' => 8764.5,
+                                '2025' => 9130.5,
+                                '2026' => 9495.5,
+                                '2027' => 9860.5,
+                                '2028' => 10225.5,
+                                '2029' => 10591.5,
+                                '2030' => 10956.5
                                 //This needs exending to 2030 or via a method if possible. But I can't work out how Julian dates work just yet.
   );
 
